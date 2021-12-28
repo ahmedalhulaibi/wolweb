@@ -1,5 +1,15 @@
 [![made-with-Go](https://img.shields.io/badge/Made%20with-Go-orange)](http://golang.org) [![proc-arch](https://img.shields.io/badge/Arch-x86%20%7C%20AMD64%20%7C%20ARM5%20%7C%20ARM7-blue)](http://golang.org) [![os](https://img.shields.io/badge/OS-Linux%20%7C%20Windows%20%7C%20Darwin-yellowgreen)](http://golang.org)
 
+# Quickstart 
+
+Assuming you have Docker installed, you can quickly get started by running this command
+```
+git clone https://github.com/ahmedalhulaibi/wolweb.git && \
+cd wolweb && \
+docker build -t wolweb . && \
+docker run --name wolweb-instance -d wolweb && \
+docker ps
+```
 
 # Web interface for sending Wake-on-lan (magic packet)
 
