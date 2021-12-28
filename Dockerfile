@@ -1,34 +1,32 @@
-# docker build -t wolweb .
-FROM golang:alpine AS builder
+#syntax=docker/dockerfile:1.2
+FROM golang:1.17 AS builder
 
-LABEL org.label-schema.vcs-url="https://github.com/sameerdhoot/wolweb" \
-      org.label-schema.url="https://github.com/sameerdhoot/wolweb/blob/master/README.md"
+RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
 
-RUN mkdir /wolweb
-WORKDIR /wolweb
+# Force fetching modules over SSH
+RUN git config --system url."ssh://git@github.com/".insteadOf "https://github.com/"
 
-# Install Dependecies
-RUN apk update && apk upgrade && \
-    apk add --no-cache git && \
-    git clone https://github.com/sameerdhoot/wolweb . && \
-    go get -d github.com/gorilla/handlers && \
-    go get -d github.com/gorilla/mux && \
-    go get -d github.com/ilyakaznacheev/cleanenv
+WORKDIR /go/src/github.com/sameerdhoot/wolweb
 
-# Build Source Files
-RUN go build -o wolweb . 
+COPY . .
 
-# Create 2nd Stage final image
-FROM alpine
-WORKDIR /wolweb
-COPY --from=builder /wolweb/index.html .
-COPY --from=builder /wolweb/wolweb .
-COPY --from=builder /wolweb/devices.json .
-COPY --from=builder /wolweb/config.json .
-COPY --from=builder /wolweb/static ./static
+RUN --mount=type=ssh \
+    --mount=type=cache,target=/go/pkg/mod \
+    --mount=type=cache,target=/root/.cache/go-build \
+    CGO_ENABLED=0 \
+    GOOS=linux \
+    go build -o app .
 
-ARG WOLWEBPORT=8089
+FROM gcr.io/distroless/cc AS final
 
-CMD ["/wolweb/wolweb"]
+ARG WOLWEBPORT ":8089"
 
-EXPOSE ${WOLWEBPORT}
+WORKDIR /
+
+COPY --from=builder /go/src/github.com/sameerdhoot/wolweb/app app
+COPY --from=builder /go/src/github.com/sameerdhoot/wolweb/index.html .
+COPY --from=builder /go/src/github.com/sameerdhoot/wolweb/devices.json .
+COPY --from=builder /go/src/github.com/sameerdhoot/wolweb/config.json .
+COPY --from=builder /go/src/github.com/sameerdhoot/wolweb/static ./static
+
+CMD ["/app"]
