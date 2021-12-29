@@ -42,7 +42,8 @@ jobs:
       - 
         name: Docker Setup QEMU
         uses: docker/setup-qemu-action@v1.2.0
-        platforms: arm64, amd64, arm
+        with:
+          platforms: arm64, amd64, arm
       -
         name: Docker meta
         id: docker_meta_api
