@@ -18,7 +18,7 @@ docker run --name wolweb-instance \
     -v "${PWD}/devices.json:/devices.json" \
     -v "${PWD}/config.json:/config.json" \
     -p "${WOLWEBPORT}:8089" \
-    -e WOLWEBBCASTIP="${WOLWEBBCASTIP}"
+    -e WOLWEBBCASTIP="${WOLWEBBCASTIP}" \
     --restart unless-stopped \
     --network host \
     -d ghcr.io/ahmedalhulaibi/wolweb:latest

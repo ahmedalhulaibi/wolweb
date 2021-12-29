@@ -5,7 +5,7 @@
 Assuming you have Docker installed, you can quickly get started by running this command
 
 ```
-curl -s quickstart.sh | bash
+curl -s https://raw.githubusercontent.com/ahmedalhulaibi/wolweb/main/quickstart.sh | bash
 ```
 
 # Web interface for sending Wake-on-lan (magic packet)
