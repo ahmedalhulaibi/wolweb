@@ -3,12 +3,9 @@
 # Quickstart 
 
 Assuming you have Docker installed, you can quickly get started by running this command
+
 ```
-git clone https://github.com/ahmedalhulaibi/wolweb.git && \
-cd wolweb && \
-docker build -t wolweb . && \
-docker run --name wolweb-instance -d wolweb && \
-docker ps
+curl -s quickstart.sh | bash
 ```
 
 # Web interface for sending Wake-on-lan (magic packet)
@@ -57,15 +54,6 @@ The application will use the following default values if they are not explicitly
 
 You can override the default application configuration by using a config file or by setting environment variables. The application will first load values from config file and look for environment variables and overwrites values from the file with the values which were found in the environment.
 
-**Using config.json:**
-
-```json
-{
-    "port": 8089,
-    "vdir":"/wolweb",
-    "bcastip":"192.168.1.255:9"
-}
-```
 **Using Environment Variables:**
 
 *Environment variables takes precedence over values in config.json file.*
@@ -73,7 +61,6 @@ You can override the default application configuration by using a config file or
 | Variable Name | Description
 | --- | --- |
 | WOLWEBPORT | Override for default HTTP port
-| WOLWEBVDIR | Override for default virtual directory
 | WOLWEBBCASTIP | Override for broadcast IP address and port
 
 ## Devices (targets) - devices.json format
