@@ -28,5 +28,3 @@ docker ps
 echo "run the below command to stop the container"
 
 echo "docker stop wolweb-instance"
-
-popd
