@@ -1,6 +1,6 @@
 module github.com/sameerdhoot/wolweb
 
-go 1.16
+go 1.17
 
 require (
 	github.com/gorilla/handlers v1.5.1
