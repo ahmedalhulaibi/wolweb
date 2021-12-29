@@ -14,6 +14,8 @@ fi
 
 set -eux
 
+docker rm -f wolweb-instance
+
 docker run --name wolweb-instance \
     -v "${PWD}/devices.json:/devices.json" \
     -v "${PWD}/config.json:/config.json" \
@@ -24,6 +26,8 @@ docker run --name wolweb-instance \
     -d ghcr.io/ahmedalhulaibi/wolweb:latest
 
 docker ps
+
+docker logs wolweb-instance
 
 echo "run the below command to stop the container"
 
