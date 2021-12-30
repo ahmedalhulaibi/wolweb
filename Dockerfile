@@ -22,7 +22,7 @@ RUN --mount=type=ssh \
     GOOS=linux \
     go build -o app .
 
-FROM gcr.io/distroless/cc AS final
+FROM alpine:3.15.0 AS final
 
 ARG WOLWEBPORT ":8089"
 
