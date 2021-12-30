@@ -14,6 +14,9 @@ fi
 
 set -eux
 
+wget https://raw.githubusercontent.com/ahmedalhulaibi/wolweb/main/config.json
+wget https://raw.githubusercontent.com/ahmedalhulaibi/wolweb/main/devices.json
+
 docker rm -f wolweb-instance
 
 docker run --name wolweb-instance \
