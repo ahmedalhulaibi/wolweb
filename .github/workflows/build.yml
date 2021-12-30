@@ -43,7 +43,7 @@ jobs:
         name: Docker Setup QEMU
         uses: docker/setup-qemu-action@v1.2.0
         with:
-          platforms: arm64, amd64, arm
+          platforms: linux/arm64, linux/amd64, linux/arm/v6, linux/arm/v7
       -
         name: Docker meta
         id: docker_meta_api
@@ -79,3 +79,4 @@ jobs:
           ssh: default=${{ steps.ssh-setup.outputs.SSH_KEY_PATH }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
+          platforms: linux/arm64, linux/amd64, linux/arm/v6, linux/arm/v7
