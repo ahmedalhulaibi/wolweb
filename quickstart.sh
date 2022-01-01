@@ -18,6 +18,7 @@ wget https://raw.githubusercontent.com/ahmedalhulaibi/wolweb/main/config.json
 wget https://raw.githubusercontent.com/ahmedalhulaibi/wolweb/main/devices.json
 
 docker rm -f wolweb-instance
+docker image rm -f ghcr.io/ahmedalhulaibi/wolweb:latest
 
 docker run --name wolweb-instance \
     -v "${PWD}/devices.json:/devices.json" \
